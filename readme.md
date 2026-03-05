@@ -1,4 +1,4 @@
-🚀 QA Mock Data ServerA dual-protocol 
+# 🚀 QA Mock Data ServerA dual-protocol 
 
 mock server designed to unblock QA automation development. It provides a flexible environment to simulate various system responses using both REST and GraphQL.📍 Service EndpointsServiceLocal URLDescriptionGraphQL Sandboxhttp://localhost:4000/Apollo Sandbox for schema exploration.REST APIhttp://localhost:3000Main REST entry point.Swagger Docshttp://localhost:3000/api-docsInteractive API documentation.🛠️ Getting StartedLocal DevelopmentRun the server directly using tsx (requires Node.js and dependencies):Bashnpx tsx src/index.ts
 Docker (Recommended)Use Docker Compose to manage the lifecycle with environment variables pre-configured:Bash# Start the server
