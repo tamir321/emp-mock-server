@@ -51,7 +51,7 @@ docker run -d --rm \
   -e GQL_PORT=4000 \
   qa-automation-server
 ```
-🔍 GraphQL Query ExamplesUse these queries in the Apollo Sandbox (:4000) to verify data structures.Get All Employees with DepartmentsGraphQLquery 
+# 🔍 GraphQL Query ExamplesUse these queries in the Apollo Sandbox (:4000) to verify data structures.Get All Employees with DepartmentsGraphQLquery 
 ```bash
 GetAllEmployeesWithDepts {
   employees {
@@ -65,7 +65,7 @@ GetAllEmployeesWithDepts {
   }
 }
 ```
-Get Single Employee (by ID)
+## Get Single Employee (by ID)
 ```bash
 Variables: {"employeeId": "09975dd0-bdde-4dc7-8f3c-df1e0619b6a1"}GraphQLquery Employee($employeeId: ID!) {
   employee(id: $employeeId) {
@@ -79,7 +79,7 @@ Variables: {"employeeId": "09975dd0-bdde-4dc7-8f3c-df1e0619b6a1"}GraphQLquery Em
   }
 }
 ```
-Filtered SearchGraphQL# By Department
+## Filtered SearchGraphQL# By Department
 ```bash
 query {
   employees(departmentName: "Engineering") {
@@ -87,7 +87,7 @@ query {
   }
 }
 ```
-# By Name Prefix
+## By Name Prefix
 ```bash
 query {
   employees(name: "Ka") {
@@ -95,11 +95,11 @@ query {
   }
 }
 ```
-🚑 TroubleshootingStuck Containers (Linux/Ubuntu)If the container refuses to stop due to permission issues:Bash# 1. Get the Process ID (PID)
+# 🚑 TroubleshootingStuck Containers (Linux/Ubuntu)If the container refuses to stop due to permission issues:Bash# 1. Get the Process ID (PID)
 ```bash
 docker inspect -f '{{.State.Pid}}' qa-automation-server
 ```
-# 2. Force Kill the process (replace 1234 with the actual PID)
+## 2. Force Kill the process (replace 1234 with the actual PID)
 ```bash
 sudo kill -9 1234
 ```
