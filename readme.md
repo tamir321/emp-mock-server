@@ -2,7 +2,10 @@
 
 mock server designed to unblock QA automation development. It provides a flexible environment to simulate various system responses using both REST and GraphQL.
 
-📍 Service EndpointsServiceLocal URLDescriptionGraphQL Sandboxhttp://localhost:4000/Apollo
+📍 Service EndpointsServiceLocal URLDescriptionGraphQL Sandbox
+
+http://localhost:4000/Apollo
+
 Sandbox for schema exploration.
 
 REST API  http://localhost:3000
