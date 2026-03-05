@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "qa-server-chart.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "qa-server-chart.selectorLabels" . | nindent 6 }}
+  # --- ADD THIS SECTION END ---
+  template:
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          ports:
+            - name: rest
+              containerPort: {{ .Values.service.restPort }}
+            - name: graphql
+              containerPort: {{ .Values.service.gqlPort }}
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.env.NODE_ENV | quote }}
+            - name: REST_PORT
+              value: {{ .Values.env.REST_PORT | quote }}
+            - name: GQL_PORT
+              value: {{ .Values.env.GQL_PORT | quote }}
+          # Health check targeting your Swagger docs
+          readinessProbe:
+            httpGet:
+              path: /api-docs/
+              port: rest
+            initialDelaySeconds: 10
+            periodSeconds: 5

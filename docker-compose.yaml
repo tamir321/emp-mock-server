@@ -1,0 +1,27 @@
+services:
+  qa-automation-server:
+    # Use the local Dockerfile we just optimized
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    
+    # Give the container a recognizable name
+    container_name: qa-automation-server
+    
+    # Mapping the ports to match your REST and GraphQL defaults
+    # format: "host_port:container_port"
+    ports:
+      - "${REST_PORT:-3000}:3000"
+      - "${GQL_PORT:-4000}:4000"
+
+    # Load environment variables from your local .env file
+    # In the cluster, these will be replaced by ConfigMaps/Secrets
+    env_file:
+      - .env
+
+    # Restart policy: helpful for local stability
+    restart: unless-stopped
+
+    # --- VOLUMES REMOVED ---
+    # We no longer mount ./src/data.js here because the 
+    # Dockerfile's 'npm run build' now handles the files.

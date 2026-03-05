@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "qa-server-chart.fullname" . }}-rest
+  labels:
+    {{- include "qa-server-chart.selectorLabels" . | nindent 4 }}
+spec:
+  host: {{ .Values.route.host }}
+  to:
+    kind: Service
+    name: {{ include "qa-server-chart.fullname" . }}
+    weight: 100
+  port:
+    targetPort: rest
+  tls:
+    termination: edge # This handles SSL at the router level
+    insecureEdgeTerminationPolicy: Allow

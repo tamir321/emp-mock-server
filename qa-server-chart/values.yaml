@@ -1,0 +1,50 @@
+# values.yaml
+replicaCount: 1
+nameOverride: "qa-server"
+fullnameOverride: "qa-server"
+image:
+  # Use your Artifactory path
+  repository: <your-company>.jfrog.io/docker-local/qa-mock-server
+  pullPolicy: IfNotPresent
+  tag: "v1.0.0"
+
+# Crucial for pulling from private Artifactory
+imagePullSecrets: 
+  - name: artifactory-secret
+
+service:
+  type: ClusterIP
+  restPort: 3000
+  gqlPort: 4000
+
+ingress:
+  enabled: false
+  className: "alb" # Based on your AWS ALB setup
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    # Add your specific SSL/Cert annotations here if needed
+  hosts:
+    - host: qa-data-server.yourcompany.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+env:
+  NODE_ENV: "production"
+  REST_PORT: "3000"
+  GQL_PORT: "4000"
+
+route:
+  enabled: true
+  host: qa-mock-server.apps.your-cluster.com
+
+# values.yaml additions
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account (OpenShift sometimes needs these)
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "qa-server-sa"
